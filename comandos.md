@@ -9,3 +9,22 @@
 `composer require laravel/jetstream`
 `php artisan jetstream:install livewire --dark`
 ## ejecutar migraciones
+
+## crear host virtual en Windows
+Como administrador ejecutar `notepad` y buscar `C:\Windows\System32\drivers\etc\hosts`, agregar `127.0.0.1       ecom-app.test y guardar.
+
+Ahora ir a `C:\xampp\apache\conf\extra\httpd-vhosts.conf` y agregar lo siguiente al final:
+```
+<VirtualHost *:80>
+    ServerName localhost
+    DocumentRoot "C:/xampp/htdocs"
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName ecom-app.test
+    DocumentRoot "C:/xampp/htdocs/laravel/ecom-app/public"
+</VirtualHost>
+```
+Reiniciar apache.
+## Crear una base de datos para el proyecto
+Ir a phpmyadmin y agregar una base de datos con el nombre de `ecom_app`, ademas configurar la conexion en `.env`, ejecutar migraciones.
