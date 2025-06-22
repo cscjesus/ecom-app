@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subcategory extends Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    protected $fillable = ['name', 'category_id'];
     //Relacion uno a muchos inversa
     public function category()
     {

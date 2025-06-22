@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Option extends Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    protected $fillable = ['name', 'type',];
     //relacion uno a muchos inversa
     public function products()
     {

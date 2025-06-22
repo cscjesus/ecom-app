@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Variant extends Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
+    protected $fillable = ['sku', 'image_path', 'product_id'];
     //relacion uno a muchos inversa
     public function product()
     {
