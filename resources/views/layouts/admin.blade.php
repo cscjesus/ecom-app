@@ -1,3 +1,4 @@
+@props(['breadcrumbs' => []])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -11,7 +12,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    
+
     <!-- Font awesome -->
     <script src="https://kit.fontawesome.com/25ae1e3f98.js" crossorigin="anonymous"></script>
 
@@ -30,14 +31,21 @@
         x-on:click="sidebarOpen =false">
     </div>
 
-    @include('layouts.partials.navigation')
+    @include('layouts.partials.admin.navigation')
 
-    @include('layouts.partials.sidebar')
+    @include('layouts.partials.admin.sidebar')
 
     <div class="p-4 sm:ml-64">
-        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            {{ $slot }}
+        <div class="mt-14">
+
+            @include('layouts.partials.admin.breadcrumb')
+            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+                {{-- Contenido de la página --}}
+
+                {{ $slot }}
+            </div>
         </div>
+
     </div>
     {{-- https://flowbite.com/docs/components/sidebar/ 
     Despues ejecutar:npm run build
