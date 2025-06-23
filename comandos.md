@@ -28,3 +28,17 @@ Ahora ir a `C:\xampp\apache\conf\extra\httpd-vhosts.conf` y agregar lo siguiente
 Reiniciar apache.
 ## Crear una base de datos para el proyecto
 Ir a phpmyadmin y agregar una base de datos con el nombre de `ecom_app`, ademas configurar la conexion en `.env`, ejecutar migraciones.
+## Traducir la aplicacion a español, ejecutar
+
+`composer require laravel-lang/common`
+`php artisan lang:add es`
+
+los pasos a seguir estan en `https://laravel-lang.com/basic-usage.html#installation`
+
+
+## software requerido
+
+- Composer
+- nodejs v22.16.0
+- npm v10.9.2
+- php 8.2.12
