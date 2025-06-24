@@ -58,6 +58,7 @@
     Si hay problemas, ejecutar:      Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
     --}}
     @livewireScripts
+    @stack('js')
 </body>
 
 </html>
