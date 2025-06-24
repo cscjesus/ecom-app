@@ -8,6 +8,12 @@
     ],
 ]">
 
+    <x-slot name="action">
+        <a class="btn btn-blue" href="{{ route('admin.families.create') }}">
+            Nuevo
+        </a>
+    </x-slot>
+
     @if ($families->count())
 
         <div class="relative overflow-x-auto">
