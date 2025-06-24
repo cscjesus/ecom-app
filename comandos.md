@@ -32,7 +32,7 @@ Ir a phpmyadmin y agregar una base de datos con el nombre de `ecom_app`, ademas 
 
 `composer require laravel-lang/common`
 `php artisan lang:add es`
-
+Cambiar en `.env` el valor de `APP_LOCALE=es`
 los pasos a seguir estan en `https://laravel-lang.com/basic-usage.html#installation`
 
 
