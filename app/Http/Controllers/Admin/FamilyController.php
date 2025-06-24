@@ -35,9 +35,15 @@ class FamilyController extends Controller
         $request->validate([
             'name' => 'required|string',
         ]);
-        Family::create(
+        $family = Family::create(
             $request->all()
         );
+         session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Actualización exitosa',
+            'text' => "Familia _ $family->name _ creada correctamente",
+           
+        ]);
         return redirect()->route('admin.families.index');
     }
 
@@ -68,6 +74,12 @@ class FamilyController extends Controller
         $family->update(
             $request->all()
         );
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Actualización exitosa',
+            'text' => "Familia _ $family->name _ actualizada correctamente",
+           
+        ]);
         return redirect()->route('admin.families.edit',$family);
     }
 
