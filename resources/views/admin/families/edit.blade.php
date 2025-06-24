@@ -45,8 +45,26 @@
         <script>
             function confirmDelete() {
 
-                document.getElementById('delete-form').submit();
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "¡No podrás revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, ¡eliminalo!",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('delete-form').submit();
 
+                        // Swal.fire({
+                        //     title: "¡Eliminado!",
+                        //     text: "Su archivo ha sido eliminado",
+                        //     icon: "success"
+                        // });
+                    }
+                });
             }
         </script>
     @endpush

@@ -38,11 +38,11 @@ class FamilyController extends Controller
         $family = Family::create(
             $request->all()
         );
-         session()->flash('swal', [
+        session()->flash('swal', [
             'icon' => 'success',
-            'title' => 'Actualización exitosa',
-            'text' => "Familia _ $family->name _ creada correctamente",
-           
+            'title' => 'Creación exitosa',
+            'html' => "Familia <b>$family->name</b> creada correctamente",
+
         ]);
         return redirect()->route('admin.families.index');
     }
@@ -77,10 +77,10 @@ class FamilyController extends Controller
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Actualización exitosa',
-            'text' => "Familia _ $family->name _ actualizada correctamente",
-           
+            'html' => "Familia <b>$family->name</b> actualizada correctamente",
+
         ]);
-        return redirect()->route('admin.families.edit',$family);
+        return redirect()->route('admin.families.edit', $family);
     }
 
     /**
@@ -88,7 +88,20 @@ class FamilyController extends Controller
      */
     public function destroy(Family $family)
     {
-       $family->delete();
-        return redirect()->route('admin.families.index')->with('success', 'Family deleted successfully.');
+        if ($family->categories()->count() > 0) {
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => '¡Ops!',
+                'html' => "La familia <strong>$family->name</strong> no se puede eliminar porque tiene categorias asociadas.",
+            ]);
+            return redirect()->route('admin.families.edit', $family);
+        }
+        $family->delete();
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Eliminación exitosa',
+            'html' => "Familia <strong>$family->name</strong> eliminada correctamente",
+        ]);
+        return redirect()->route('admin.families.index');
     }
 }
