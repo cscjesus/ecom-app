@@ -54,7 +54,7 @@ class FamilyController extends Controller
      */
     public function edit(Family $family)
     {
-        //
+        return view('admin.families.edit', compact('family'));
     }
 
     /**
@@ -62,7 +62,13 @@ class FamilyController extends Controller
      */
     public function update(Request $request, Family $family)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+        $family->update(
+            $request->all()
+        );
+        return redirect()->route('admin.families.edit',$family);
     }
 
     /**
