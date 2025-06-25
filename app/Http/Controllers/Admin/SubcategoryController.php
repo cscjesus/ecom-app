@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 //php artisan make:controller Admin\SubcategoryController --model=Subcategory
@@ -15,6 +16,7 @@ class SubcategoryController extends Controller
     {
         return view('admin.subcategories.index', [
             'subcategories' => Subcategory::orderBy('id', 'desc')
+                ->orderBy('id', 'desc') // Order by ID in descending order
                 ->with('category.family') // Preload relationships to avoid N+1 queries
                 ->paginate(10),
         ]);
@@ -25,7 +27,8 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.subcategories.create', compact('categories'));
     }
 
     /**
@@ -33,7 +36,20 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+        $subcategory = Subcategory::create(
+            $request->all()
+        );
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Creación exitosa',
+            'html' => "Subcategoría <b>$subcategory->name</b> creada correctamente",
+
+        ]);
+        return redirect()->route('admin.subcategories.index');
     }
 
     /**
