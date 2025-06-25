@@ -11,7 +11,8 @@
         'name' => 'Nuevo',
     ],
 ]">
-    <form action="{{ route('admin.subcategories.store') }}" method="POST">
+@livewire('admin.subcategories.subcategory-create')
+    {{-- <form action="{{ route('admin.subcategories.store') }}" method="POST">
         @csrf
         <div class="card">
             <x-validation-errors class="mb-4" />
@@ -20,7 +21,6 @@
                     categorías
                 </x-label>
                 <x-select name="category_id" class="w-full">
-                    {{-- <option value="">Seleccione una familia</option> --}}
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
                             {{ $category->name }}
@@ -42,5 +42,5 @@
                 </x-button>
             </div>
         </div>
-    </form>
+    </form> --}}
 </x-admin-layout>
