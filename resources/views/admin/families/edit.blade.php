@@ -52,17 +52,11 @@
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: "Sí, ¡eliminalo!",
+                    confirmButtonText: "Sí, ¡eliminar!",
                     cancelButtonText: "Cancelar"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         document.getElementById('delete-form').submit();
-
-                        // Swal.fire({
-                        //     title: "¡Eliminado!",
-                        //     text: "Su archivo ha sido eliminado",
-                        //     icon: "success"
-                        // });
                     }
                 });
             }

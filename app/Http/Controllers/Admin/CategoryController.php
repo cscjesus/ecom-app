@@ -91,6 +91,20 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if ($category->subcategories->count() > 0) {
+            session()->flash('swal', [
+                'icon' => 'error',
+                'title' => '¡Ops!',
+                'html' => "La categoría <strong>$category->name</strong> no se puede eliminar porque tiene subcategorías asociadas.",
+            ]);
+            return redirect()->route('admin.categories.edit', $category);
+        }
+        $category->delete();
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Eliminación exitosa',
+            'html' => "Categoría <strong>$category->name</strong> eliminada correctamente",
+        ]);
+        return redirect()->route('admin.categories.index');
     }
 }
