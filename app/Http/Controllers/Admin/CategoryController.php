@@ -15,7 +15,9 @@ class CategoryController extends Controller
     public function index()
     {
         return view('admin.categories.index', [
-            'categories' => Category::orderBy('id', 'desc')->paginate(10),
+            'categories' => Category::orderBy('id', 'desc')
+            ->with('family')//precargar la relación family, para no hacer N+1 consultas
+            ->paginate(10),
         ]);
     }
 

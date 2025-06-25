@@ -35,6 +35,8 @@ Ir a phpmyadmin y agregar una base de datos con el nombre de `ecom_app`, ademas 
 Cambiar en `.env` el valor de `APP_LOCALE=es`
 los pasos a seguir estan en `https://laravel-lang.com/basic-usage.html#installation`
 
+## para ver el rendimiento de la aplicacion
+`composer require barryvdh/laravel-debugbar --dev`
 
 ## software requerido
 
@@ -42,3 +44,4 @@ los pasos a seguir estan en `https://laravel-lang.com/basic-usage.html#installat
 - nodejs v22.16.0
 - npm v10.9.2
 - php 8.2.12
+
