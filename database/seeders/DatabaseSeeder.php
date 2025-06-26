@@ -21,10 +21,11 @@ class DatabaseSeeder extends Seeder
         Storage::makeDirectory('products');
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Jesus Hdez',
+            'email' => 'correo@gmail.com',
+            'password' => bcrypt('12345678'),
+        ]);
         $this->call([FamilySeeder::class]);
         Product::factory(150)->create();
     }
