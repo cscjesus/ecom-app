@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +17,8 @@ class DatabaseSeeder extends Seeder
     //php artisan migrate:refresh --seed
     public function run(): void
     {
+        Storage::deleteDirectory('products');
+        Storage::makeDirectory('products');
         // User::factory(10)->create();
 
         // User::factory()->create([
@@ -22,5 +26,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([FamilySeeder::class]);
+        Product::factory(150)->create();
     }
 }

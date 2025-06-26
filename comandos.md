@@ -38,6 +38,27 @@ los pasos a seguir estan en `https://laravel-lang.com/basic-usage.html#installat
 ## para ver el rendimiento de la aplicacion
 `composer require barryvdh/laravel-debugbar --dev`
 
+## Solucionar problema de imagen con faker
+
+### Abre el archivo de configuración:
+Presiona `Ctrl + P` en Visual Studio Code (VSC) y busca el siguiente archivo:
+```php
+vendor/fakerphp/faker/src/Faker/Provider/Image.php
+```
+
+### Modifica la variable del proveedor de imágenes:
+Una vez abierto el archivo, localiza la variable `BASE_URL` y reemplaza su valor por el nuevo proveedor. Por ejemplo:
+
+```php
+// public const BASE_URL = 'https://via.placeholder.com';
+public const BASE_URL = 'https://placehold.jp';
+```
+
+### Ejecuta los seeders nuevamente:
+Después de realizar el cambio, guarda el archivo y ejecuta los seeders de nuevo para que los cambios surtan efecto.
+
+## Crear acceso directo a `storage`
+Ejecutar `php artisan storage:link` para crear un acceso directo a la carpeta `storage/app/public` en `public/storage`.
 ## software requerido
 
 - Composer
