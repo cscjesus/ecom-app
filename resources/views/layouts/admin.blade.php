@@ -63,10 +63,15 @@
 
     @if (session('swal'))
         <script>
-            Swal.fire({!! json_encode( session('swal') )!!});
+            Swal.fire({!! json_encode(session('swal')) !!});
         </script>
     @endif
-
+    {{-- esuchar eventos desde livewire --}}
+    <script>
+        Livewire.on('swal', (data) => {
+            Swal.fire(data[0]);
+        });
+    </script>
 </body>
 
 </html>
