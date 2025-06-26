@@ -17,34 +17,65 @@
                  </x-select>
              </div>
              <div class="mb-4">
-                <x-label class="mb-2">
-                    Categorías
-                </x-label>
-                <x-select class="w-full" wire:model.live="subcategoryEdit.category_id">
-                    <option value="" disabled>
-                        Seleccione una categoría
-                    </option>
-                    @foreach ($this->categories as $category)
-                        <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
+                 <x-label class="mb-2">
+                     Categorías
+                 </x-label>
+                 <x-select class="w-full" wire:model.live="subcategoryEdit.category_id">
+                     <option value="" disabled>
+                         Seleccione una categoría
+                     </option>
+                     @foreach ($this->categories as $category)
+                         <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                             {{ $category->name }}
+                         </option>
+                     @endforeach
 
-                </x-select>
-            </div>
+                 </x-select>
+             </div>
 
              <div class="mb-4">
                  <x-label for="name" value="Nombre" class="mb-2" />
-                 <x-input class="w-full" placeholder="Ingrese el nombre de la subcategoría" wire:model.live="subcategoryEdit.name"/>
+                 <x-input class="w-full" placeholder="Ingrese el nombre de la subcategoría"
+                     wire:model.live="subcategoryEdit.name" />
              </div>
 
              <div class="flex justify-end">
-                 <x-button>
+                 <x-danger-button onclick="confirmDelete()">
+                     Eliminar
+                 </x-danger-button>
+
+                 <x-button class="ml-2">
                      Actualizar
                  </x-button>
              </div>
          </div>
      </form>
+      <form action="{{ route('admin.subcategories.destroy', $subcategory) }}" method="POST" id="delete-form">
+        @csrf
+        @method('DELETE')
+
+    </form>
      {{-- @dump($this->categories) --}}
      {{-- @dump(@subcategoryEdit) --}}
+     @push('js')
+         <script>
+             function confirmDelete() {
+
+                 Swal.fire({
+                     title: "¿Estás seguro?",
+                     text: "¡No podrás revertir esto!",
+                     icon: "warning",
+                     showCancelButton: true,
+                     confirmButtonColor: "#3085d6",
+                     cancelButtonColor: "#d33",
+                     confirmButtonText: "Sí, ¡eliminar!",
+                     cancelButtonText: "Cancelar"
+                 }).then((result) => {
+                     if (result.isConfirmed) {
+                         document.getElementById('delete-form').submit();
+                     }
+                 });
+             }
+         </script>
+     @endpush
  </div>
