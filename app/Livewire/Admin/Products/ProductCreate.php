@@ -63,10 +63,10 @@ class ProductCreate extends Component
         return Subcategory::where('category_id', $this->category_id)
             ->get();
     }
-    public function save()
+    public function store()
     {
         $this->validate([
-            'image' => 'nullable|image|max:1024', // 1MB Max
+            'image' => 'image|max:1024', // 1MB Max
             'product.sku' => 'required|unique:products,sku',
             'product.name' => 'required',
             'product.description' => 'nullable',
