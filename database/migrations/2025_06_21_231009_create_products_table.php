@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('sku')->unique();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('image_path');
             $table->decimal('price', 10, 2);
             $table->foreignId('subcategory_id')
                 ->constrained();
+            $table->decimal('stock',10,2)->default(0);
             $table->timestamps();
         });
     }

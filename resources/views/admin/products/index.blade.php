@@ -31,6 +31,9 @@
                         <th scope="col" class="px-6 py-3">
                             Precio
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            Stock
+                        </th>
 
                         <th scope="col" class="px-6 py-3">
 
@@ -52,6 +55,9 @@
                             </td>
                             <td class="px-6 py-4">
                                  $ {{ sprintf('%.2f', $product->price) }}  
+                            </td>
+                            <td class="px-6 py-4">
+                                  {{ sprintf('%.2f', $product->stock) }}  
                             </td>
 
                             <td class="px-6 py-4">
