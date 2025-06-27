@@ -15,7 +15,7 @@
                 src="{{ $image ? $image->temporaryUrl() : Storage::url($productEdit['image_path']) }}" alt="No image">
         </figure>
         <x-validation-errors class="mb-4" />
-        
+
         <div class="card">
             {{-- sku --}}
             <div class="mb-4">
@@ -92,16 +92,46 @@
                     Stock
                 </x-label>
                 <x-input wire:model='productEdit.stock' class="w-full"
-                    placeholder="Por favor ingrese el stock del producto" type="number"  step="0.01"/>
-        </div>
-        <div class="flex justify-end">
-            <x-button>
-                <i class="fas fa-save mr-2"></i>
-                Actualizar
-            </x-button>
+                    placeholder="Por favor ingrese el stock del producto" type="number" step="0.01" />
+            </div>
+            <div class="flex justify-end">
+                <x-danger-button onclick="confirmDelete()">
+                    Eliminar
+                </x-danger-button>
+                <x-button class="ml-2">
+                    <i class="fas fa-save mr-2"></i>
+                    Actualizar
+                </x-button>
+
+            </div>
 
         </div>
+    </form>
+    <form action="{{ route('admin.products.destroy', $product) }}" method="POST" id="delete-form">
+        @csrf
+        @method('DELETE')
 
-</div>
-</form>
+    </form>
+
+    @push('js')
+        <script>
+            function confirmDelete() {
+
+                Swal.fire({
+                    title: "¿Estás seguro?",
+                    text: "¡No podrás revertir esto!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, ¡eliminar!",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('delete-form').submit();
+                    }
+                });
+            }
+        </script>
+    @endpush
 </div>

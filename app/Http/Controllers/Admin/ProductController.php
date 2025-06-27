@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+
 //make:controller Admin\ProductController --model=Product
 class ProductController extends Controller
 {
@@ -14,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('admin.products.index', [
-            'products' => Product::orderBy('id','desc')->paginate(10)
+            'products' => Product::orderBy('id', 'desc')->paginate(10)
         ]);
     }
 
@@ -63,6 +66,14 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        //dd($product);
+        Storage::delete($product->image_path);
+        $product->delete();
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Eliminación exitosa',
+            'html' => "Producto <strong>$product->name</strong> eliminado correctamente",
+        ]);
+        return redirect()->route('admin.products.index');
     }
 }
