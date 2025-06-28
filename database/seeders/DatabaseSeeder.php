@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'correo@gmail.com',
             'password' => bcrypt('12345678'),
         ]);
-        $this->call([FamilySeeder::class]);
+        $this->call([FamilySeeder::class,OptionSeeder::class]);
         Product::factory(50)->create();
     }
 }
