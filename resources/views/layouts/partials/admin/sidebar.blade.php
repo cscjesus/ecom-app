@@ -6,6 +6,13 @@
             'route' => route('admin.dashboard'),
             'active' => request()->routeIs('admin.dashboard'),
         ],
+         //opciones
+        [
+            'name' => 'Opciones',
+            'icon' => 'fa-solid fa-gear',
+            'route' => route('admin.options.index'),
+            'active' => request()->routeIs('admin.options.*'),
+        ],
         [
             //Familia de productos
             'name' => 'Familias',
@@ -34,7 +41,8 @@
             'route' => route('admin.products.index'),
             'active' => request()->routeIs('admin.products.*'),
         ],
-      
+     
+       
     ];
 @endphp
 

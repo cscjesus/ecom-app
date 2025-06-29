@@ -78,7 +78,7 @@ class OptionSeeder extends Seeder
             ],
             [
                 'name' => 'Sexo',
-                'type' => 3,
+                'type' => 1,
                 'features' => [
                     [
                         'value' => 'm',
