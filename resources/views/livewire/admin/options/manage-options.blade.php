@@ -1,9 +1,15 @@
 <div>
+
     <section class="rounded-lg bg-white shadow-lg">
         <header class="border-b border-gray-200 px-6 py-2">
-            <h1 class=" text-lg font-semibold text-gray-700">
-                Opciones
-            </h1>
+            <div class="flex justify-between">
+                <h1 class=" text-lg font-semibold text-gray-700">
+                    Opciones
+                </h1>
+                <x-button wire:click="$set('openModal', true)">
+                    <i class="fas fa-plus"></i> Agregar opción
+                </x-button>
+            </div>
         </header>
         <div class="p-6">
             <div class="space-y-6">
@@ -24,13 +30,12 @@
                                             class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature->description }}</span>
                                     @break
 
-                                 
                                     @case(2)
                                         {{-- color --}}
-                                           <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4"
-                                        style="background-color: {{ $feature->description }};">
+                                        <span class="inline-block h-6 w-6 shadow-lg rounded-full border-2 border-gray-300 mr-4"
+                                            style="background-color: {{ $feature->description }};">
 
-                                    </span>
+                                        </span>
                                     @break
 
                                     @default
@@ -42,4 +47,50 @@
             </div>
         </div>
     </section>
+
+    {{-- modal --}}
+    <x-dialog-modal wire:model="openModal">
+        <x-slot name="title">
+            Crear nueva opción
+        </x-slot>
+        <x-slot name="content">
+            <div class="grid grid-cols-2 gap-6 mb-4">
+                <div>
+                    <x-label value="Nombre de la opción" class="mt-1" />
+                    <x-input class="mt-1 block w-full" placeholder="Ejemplo: Color, Tamaño, etc." />
+                    {{-- <x-input-error for="name" class="mt-2" /> --}}
+                </div>
+                <div>
+                    <x-label value="Tipo" class="mt-1" />
+                    <x-select class="mt-1 block w-full">
+                        <option value="1">Texto</option>
+                        <option value="2">Color</option>
+                    </x-select>
+                    {{-- <x-input-error for="type" class="mt-2" /> --}}
+                </div>
+            </div>
+
+            <div class="flex items-center mb-4">
+                <hr class="flex-1">
+                <span class="mx-4">Valores</span>
+                <hr class="flex-1">
+            </div>
+
+            <div class="p-6 rounded-lg border border-gray-200">
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <x-label value="Valor" class="mt-1" />
+                        <x-input class="mt-1 block w-full" placeholder="Ingrese el valor de la opción" />
+                    </div>
+                    <div>
+                        <x-label value="Descripción" class="mt-1" />
+                        <x-input class="mt-1 block w-full" placeholder="Ingrese una descripción" />
+                    </div>
+                </div>
+            </div>
+        </x-slot>
+        <x-slot name="footer">
+
+        </x-slot>
+    </x-dialog-modal>
 </div>

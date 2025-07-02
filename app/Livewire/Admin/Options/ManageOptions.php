@@ -8,8 +8,18 @@ use Livewire\Component;
 class ManageOptions extends Component
 {
     public $options;
-    public function mount() {
-        $this->options= Option::with('features')->get();
+    public $openModal = true;
+    public $newOption = [
+        'name' => '',
+        'type' => '',
+        'features' => [
+            'value' => '',
+            'description' => '',
+        ],
+    ];
+    public function mount()
+    {
+        $this->options = Option::with('features')->get();
     }
     public function render()
     {
