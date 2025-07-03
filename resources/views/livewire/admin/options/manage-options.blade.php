@@ -54,6 +54,7 @@
             Crear nueva opción
         </x-slot>
         <x-slot name="content">
+            <x-validation-errors class="mb-4" />
             <div class="grid grid-cols-2 gap-6 mb-4">
                 <div>
                     <x-label value="Nombre de la opción" class="mt-1" />
@@ -129,7 +130,10 @@
             </div>
         </x-slot>
         <x-slot name="footer">
-
+<button class="btn btn-blue" wire:click="addOption">
+            <i class="fas fa-save"></i>
+Agregar
+</button>
         </x-slot>
     </x-dialog-modal>
 </div>
