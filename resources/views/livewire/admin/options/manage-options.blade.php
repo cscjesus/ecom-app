@@ -57,12 +57,13 @@
             <div class="grid grid-cols-2 gap-6 mb-4">
                 <div>
                     <x-label value="Nombre de la opción" class="mt-1" />
-                    <x-input class="mt-1 block w-full" placeholder="Ejemplo: Color, Tamaño, etc." />
+                    <x-input class="mt-1 block w-full" placeholder="Ejemplo: Color, Tamaño, etc."
+                        wire:model="newOption.name" />
                     {{-- <x-input-error for="name" class="mt-2" /> --}}
                 </div>
                 <div>
                     <x-label value="Tipo" class="mt-1" />
-                    <x-select class="mt-1 block w-full">
+                    <x-select class="mt-1 block w-full" wire:model.live="newOption.type">
                         <option value="1">Texto</option>
                         <option value="2">Color</option>
                     </x-select>
@@ -75,18 +76,56 @@
                 <span class="mx-4">Valores</span>
                 <hr class="flex-1">
             </div>
+            <div class="mb-4 space-y-4">
 
-            <div class="p-6 rounded-lg border border-gray-200">
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <x-label value="Valor" class="mt-1" />
-                        <x-input class="mt-1 block w-full" placeholder="Ingrese el valor de la opción" />
+                @foreach ($newOption['features'] as $index => $feature)
+                    <div class="p-6 rounded-lg border border-gray-200 relative" wire:key="features-{{ $index }}">
+
+                        <div class="absolute -top-3 px-4 bg-white">
+                            <button wire:click="removeFeature({{ $index }})">
+                                <i class="fa-solid fa-trash-can text-red-500 hover:text-red-600"></i>
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <x-label value="Valor" class="mt-1" />
+
+
+                                @switch($newOption['type'])
+                                    @case(1)
+                                        <x-input wire:model="newOption.features.{{ $index }}.value" class=" block w-full"
+                                            placeholder="Ingrese el valor de la opción" />
+                                    @break
+
+                                    @case(2)
+                                        <div class="border border-gray-300 rounded-md h-[42px] flex items-center px-3 justify-between">
+
+                                            {{ $newOption['features'][$index]['value'] ?: 'Seleccione un color' }}
+
+                                            <input type="color" wire:model.live="newOption.features.{{ $index }}.value" />
+
+                                        </div>
+                                    @break
+                                @endswitch
+
+                            </div>
+
+                            <div>
+                                <x-label value="Descripción" class="mt-1" />
+                                <x-input wire:model="newOption.features.{{ $index }}.description"
+                                    class=" block w-full" placeholder="Ingrese una descripción" />
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <x-label value="Descripción" class="mt-1" />
-                        <x-input class="mt-1 block w-full" placeholder="Ingrese una descripción" />
-                    </div>
-                </div>
+                @endforeach
+            </div>
+
+            <div class="flex justify-end">
+                <x-button wire:click="addFeature">
+                    <i class="fas fa-plus"></i> Agregar valor
+                </x-button>
+
             </div>
         </x-slot>
         <x-slot name="footer">
