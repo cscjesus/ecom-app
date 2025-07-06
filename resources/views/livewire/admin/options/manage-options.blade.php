@@ -14,12 +14,13 @@
         <div class="p-6">
             <div class="space-y-6">
                 @foreach ($options as $option)
-                    <div class="p-6 rounded-lg border-gray-200 border relative">
+                    <div class="p-6 rounded-lg border-gray-200 border relative"
+                    wire:key="option-{{$option->id}}">
                         <div class="absolute px-4 -top-3 bg-white">
                             <span>{{ $option->name }}</span>
                         </div>
                         {{-- valores --}}
-                        <div class="flex flex-wrap">
+                        <div class="flex flex-wrap mb-4">
                             @foreach ($option->features as $feature)
                                 {{-- si es un color -}}
                                 {{-- dependiendo del tipo de caracteristica --}}
@@ -42,6 +43,11 @@
                                 @endswitch
                             @endforeach
                         </div>
+
+                        <div>
+                            @livewire('admin.options.add-new-feature', ['option' => $option], key('add-new-feature-' . $option->id))
+                        </div>
+
                     </div>
                 @endforeach
             </div>
@@ -102,7 +108,7 @@
                                     @case(2)
                                         <div class="border border-gray-300 rounded-md h-[42px] flex items-center px-3 justify-between">
 
-                                            {{ $newOption['features'][$index]['value'] ?: 'Seleccione un color' }}
+                                            {{ $newOption->features[$index]['value'] ?: 'Seleccione un color' }}
 
                                             <input type="color" wire:model.live="newOption.features.{{ $index }}.value" />
 
