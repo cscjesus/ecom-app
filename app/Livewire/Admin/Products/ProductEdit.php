@@ -72,7 +72,7 @@ class ProductEdit extends Component
                 'productEdit.name' => 'required',
                 'productEdit.description' => 'nullable',
                 'productEdit.price' => 'required|numeric|min:0',
-                'productEdit.subcategory_id' => 'required|exists:categories,id',
+                'productEdit.subcategory_id' => 'required|exists:subcategories,id',
                 'productEdit.stock' => 'required|numeric|min:0',
             ],
             [],
@@ -81,7 +81,7 @@ class ProductEdit extends Component
                 'productEdit.name' => 'nombre',
                 'productEdit.description' => 'descripción',
                 'productEdit.price' => 'precio',
-                'productEdit.subcategory_id' => 'categoría',
+                'productEdit.subcategory_id' => 'subcategoría',
                 'productEdit.stock' => 'stock',
             ]
         );

@@ -15,3 +15,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+//docker exec -it 8af bash 

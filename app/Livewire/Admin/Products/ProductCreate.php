@@ -71,7 +71,7 @@ class ProductCreate extends Component
             'product.name' => 'required',
             'product.description' => 'nullable',
             'product.price' => 'required|numeric|min:0',
-            'product.subcategory_id' => 'required|exists:categories,id',
+            'product.subcategory_id' => 'required|exists:subcategories,id',
             'product.stock' => 'required|numeric|min:0',
         ],[],
         [
@@ -79,7 +79,7 @@ class ProductCreate extends Component
             'product.name' => 'nombre',
             'product.description' => 'descripción',
             'product.price' => 'precio',
-            'product.subcategory_id' => 'categoría',
+            'product.subcategory_id' => 'subcategoría',
             'product.stock' => 'stock',
         ]);
 
