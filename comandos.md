@@ -66,3 +66,80 @@ Ejecutar `php artisan storage:link` para crear un acceso directo a la carpeta `s
 - npm v10.9.2
 - php 8.2.12
 
+# Instalar lo siguiente para trabajar con docker, pero el proyecto debe tener todas sus dependencias
+
+Primero crear la red
+```
+docker network create laravel-network
+```
+Si se desea cambiar la base de datos, eliminar el volumen y volver a crearlo
+```
+docker volume create --name mariadb_data
+```
+Crear el servidor con mariadb o utilizar mysql
+```
+docker run -d --name mariadb \
+  --env ALLOW_EMPTY_PASSWORD=yes \
+  --env MARIADB_USER=laravel \
+  --env MARIADB_DATABASE=laravel \
+  --network laravel-network \
+  --volume mariadb_data:/bitnami/mariadb \
+  -p 3306:3306 \
+  bitnami/mariadb:11.8.2
+```
+Ejecutar el comando en la carpeta padre del proyecto
+```
+docker run -d \
+  --name ecom-app \ 
+  -p 8000:8000 \
+  --env DB_HOST=mariadb \
+  --env DB_PORT=3306 \
+  --env DB_USERNAME=root \
+  --env DB_DATABASE=ecom_app \
+  --network laravel-network \
+  --volume ${PWD}/ecom-app:/app \
+  bitnami/laravel:12.0.10
+```
+
+## ejecutar bash desde container
+```
+docker exec -it a64 bash
+```
+
+## realizar log del container
+```
+docker container logs 740
+```
+
+## Crear una base de datos para el proyecto
+Ir a phpmyadmin y agregar una base de datos con el nombre de `ecom_app`, ademas configurar la conexion en `.env`, ejecutar migraciones.
+
+## Resolver algunos errores presentados
+### cuando marque un error al guardar algun archivo fuera de docker, ejecutar desde el host.
+```
+sudo chown -R $USER:$USER .
+```
+### al trabajar con docker el proyecto
+Al ejecutar
+```
+npm run build
+```
+Muestra el siguiente error:
+```
+> build
+> vite build
+
+sh: 1: vite: Permission denied
+```
+ejecutar:
+```
+ sudo chown -R bitnami ./node_modules
+```
+ o
+```
+sudo chmod +x node_modules/.bin/vite
+```
+de ahi 
+```
+npm i
+```
