@@ -30,6 +30,18 @@ class ManageOptions extends Component
        $feature->delete();
        $this->options = Option::with('features')->get();
     }
+    public function deleteOption(Option $option): void
+    {
+        $name = $option->name;
+        $option->delete();
+        $this->options = Option::with('features')->get();
+        $this->dispatch('swal', [
+            'icon' => 'success',
+            'title' => 'Eliminación exitosa',
+            'html' => "Opción <b>$name</b> eliminada correctamente",
+        ]);
+        
+    }
     function removeFeature($index): void
     {
         $this->newOption->removeFeature($index);

@@ -16,6 +16,9 @@
                 @foreach ($options as $option)
                     <div class="p-6 rounded-lg border-gray-200 border relative" wire:key="option-{{ $option->id }}">
                         <div class="absolute px-4 -top-3 bg-white">
+                            <button class="mr-1" onclick="confirmDelete({{  $option->id  }},'option')">
+                                <i class="fa-solid fa-trash-can text-red-500 hover:text-red-600"></i>
+                            </button>
                             <span>{{ $option->name }}</span>
                         </div>
                         {{-- valores --}}
@@ -29,7 +32,7 @@
                                         <span
                                             class="bg-gray-100 text-gray-800 text-sm font-medium me-2 pl-2.5 pr-1.5 py-0.5 rounded-sm dark:bg-gray-700 dark:text-gray-300">{{ $feature->description }}
                                             {{-- eliminar feature --}}
-                                            <button class="ml-0.5" onclick="confirmDelete({{ $feature->id }})"
+                                            <button class="ml-0.5" onclick="confirmDelete({{ $feature->id}} ,'feature')"
                                                 {{-- wire:click="deleteFeature({{ $feature->id }})" --}}>
                                                 <i class="fa-solid fa-xmark hover:text-red-500"></i>
                                             </button>
@@ -46,7 +49,7 @@
                                             </span>
                                             <button
                                                 class="absolute z-10 left-4 -top-2 rounded-full h-4 w-4 flex justify-center items-center"
-                                                onclick="confirmDelete({{ $feature->id }})">
+                                                onclick="confirmDelete({{ $feature->id }},'feature')">
                                                 {{-- wire:click="deleteFeature({{ $feature->id }})"> --}}
                                                 <i class="fa-solid fa-trash-can hover:text-red-500 text-sm" "></i>
                                             </button>
@@ -160,7 +163,7 @@
     </x-dialog-modal>
     @push('js')
         <script>
-            function confirmDelete(featureId) {
+            function confirmDelete(id, type = 'feature') {
                 Swal.fire({
                     title: "¿Estás seguro?",
                     text: "¡No podrás revertir esto!",
@@ -172,7 +175,14 @@
                     cancelButtonText: "Cancelar"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        @this.call('deleteFeature', featureId);
+                        switch (type) {
+                            case 'feature':
+                                @this.call('deleteFeature', id);
+                                break;
+                           case 'option':
+                                @this.call('deleteOption', id);
+                                break;
+                        }
                     }
                 });
             }
