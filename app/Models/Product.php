@@ -9,6 +9,9 @@ class Product extends Model
 {
     use \Illuminate\Database\Eloquent\Factories\HasFactory;
     protected $fillable = ['sku', 'name', 'description', 'image_path', 'price', 'subcategory_id','stock'];
+    // protected $casts = [
+    //     'price' => 'float'
+    // ];
     //Relacion uno a muchos inversa
     public function subcategory()
     {
@@ -22,6 +25,7 @@ class Product extends Model
     //realtion muchos a muchos
     public function options()
     {
-        return $this->belongsToMany(Option::class)->withPivot('value')->withTimestamps();
+        return $this->belongsToMany(Option::class)
+        ->using(OptionProduct::class)->withPivot('features')->withTimestamps();
     }
 }
