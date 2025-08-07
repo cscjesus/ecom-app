@@ -20,7 +20,7 @@ class ProductVariants extends Component
             ],
         ]
     ];
-    public $openModal = true;
+    public $openModal = false;
     public $options;
     public function mount()
     {
@@ -48,7 +48,8 @@ class ProductVariants extends Component
         unset($this->variant['features'][$index]);
         $this->variant['features'] = array_values($this->variant['features']);
     }
-    public function save() {
+    public function save()
+    {
         // dd($this->variant);
         $this->validate([
             'variant.option_id' => 'required',
@@ -60,15 +61,16 @@ class ProductVariants extends Component
         $this->product->options()->attach($this->variant['option_id'], [
             'features' => $this->variant['features']
         ]);
-        $this->reset('variant','openModal');
-       
+        $this->product = $this->product->fresh();
+
+        $this->reset('variant', 'openModal');
     }
     public function feature_change($index)
     {
         $id = $this->variant['features'][$index]['id'];
         $feature = Feature::find($id);
         // dd($feature);
-        if($feature) {
+        if ($feature) {
             $this->variant['features'][$index]['value'] = $feature->value;
             $this->variant['features'][$index]['description'] = $feature->description;
         }
@@ -78,6 +80,20 @@ class ProductVariants extends Component
         // dd('pureba');
         $this->variant['features'] = [];
         $this->addFeature();
+    }
+    public function deleteFeature($optionId, $featureId)
+    {
+
+        $this->product->options()->updateExistingPivot($optionId, [
+            'features' => array_filter($this->product->options->find($optionId)->pivot->features, function ($feature) use ($featureId) {
+                return $feature['id'] != $featureId;
+            })
+        ]);
+        $this->product = $this->product->fresh();
+    }
+    public function deleteOption($optionId)  {
+        $this->product->options()->detach($optionId);
+        $this->product = $this->product->fresh();
     }
     public function render()
     {
