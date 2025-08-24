@@ -16,5 +16,28 @@ Route::middleware([
     })->name('dashboard');
 });
 
+Route::get("prueba", function () {
+    $array1 =['a','b','c'];
+    $array2 =['a','b','c'];
+    $array3 =['a','b','c'];
+
+    $arrays =[$array1,$array2,$array3];
+    $combinaciones = generarCombinaciones($arrays);
+    return $combinaciones;
+}); 
+function generarCombinaciones($arrays,$index=0,$combinacion=[])  {
+    if(count($arrays) === $index) {
+        return [$combinacion];
+    }
+    $resultado =[];
+    foreach ($arrays[$index] as $item) {
+      $combinacionTemporal = $combinacion;
+      $combinacionTemporal[] = $item;
+        
+      $resultado = array_merge($resultado, generarCombinaciones($arrays,$index+1,$combinacionTemporal));
+
+    }
+    return $resultado;
+}
 //docker exec -it 8af bash 
 //comentario agregado a proposito
